@@ -1,0 +1,26 @@
+BrainStars API client for R
+
+Itoshi NIKAIDO <dritoshi@gmail.com>
+Copyright (C) 2009. Itoshi NIKAIDO. GPL 2
+
+This R library can search and get gene expression data and plots
+from BrainStars (or B*, http://brainstars.org/).
+
+BrainStars is a quantitative expression database of the adult
+mouse brain. The database has genome-wide expression profile at 51
+adult mouse CNS regions.
+
+For 51 CNS regions, slices (0.5-mm thick) of mouse brain were cut on a
+Mouse Brain Matrix, frozen, and the specific regions were punched out
+bilaterally with a microdissecting needle (gauge 0.5 mm) under a
+stereomicroscope. For each region, we took samples every 4 hours,
+starting at ZT0 (Zeitgaber time 0; the time of lights on), for 24
+hours (6 time-point samples for each region), and we pooled the
+samples from the different time points. We independently sampled each
+region twice (n=2).
+
+These samples were purified their RNA, and measured with Affymetrix
+GeneChip Mouse Genome 430 2.0 arrays. Expression values were then
+summarized with the RMA method. After several analysis with the
+expression data, the data and analysis results were stored in the
+BrainStars database.
