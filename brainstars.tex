@@ -1,0 +1,181 @@
+%\VignetteIndexEntry{brainstars}
+%\VignetteDepends{brainstars}
+%\VignetteKeywords{brainstars}
+%\VignettePackage{brainstars}
+\documentclass[12pt,fullpage]{article}
+
+\usepackage{amsmath,epsfig,pstricks,fullpage}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage[authoryear,round]{natbib}
+
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+\newcommand{\Rclass}[1]{{\textit{#1}}}
+\newcommand{\Rmethod}[1]{{\textit{#1}}}
+
+\author{Itoshi NIKAIDO$^\ddagger$\footnote{dritoshi@gmail.com}}
+\usepackage{Sweave}
+\begin{document}
+\title{Using the BrainStars package}
+\maketitle
+\begin{center}$^\ddagger$The RIKEN Center for Developmental Biology
+\end{center}
+
+
+\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview of BrainStars} 
+
+BrainStars is a quantitative expression database of the adult
+mouse brain. The database has genome-wide expression profile at 51
+adult mouse CNS regions.
+
+For 51 CNS regions, slices (0.5-mm thick) of mouse brain were cut on a
+Mouse Brain Matrix, frozen, and the specific regions were punched out
+bilaterally with a microdissecting needle (gauge 0.5 mm) under a
+stereomicroscope. For each region, we took samples every 4 hours,
+starting at ZT0 (Zeitgaber time 0; the time of lights on), for 24
+hours (6 time-point samples for each region), and we pooled the
+samples from the different time points. We independently sampled each
+region twice (n=2).
+
+These samples were purified their RNA, and measured with Affymetrix
+GeneChip Mouse Genome 430 2.0 arrays. Expression values were then
+summarized with the RMA method. After several analysis with the
+expression data, the data and analysis results were stored in the
+BrainStars database.
+
+BrainStars database has a REST API to query gene expression data and
+some kind of figures written by Dr. Takeya Kasukawa. This package is
+wrapper for BrainStars REST API in R. BrainStars data, images and
+texts (excluding ABA data and images) are licensed under a Creative
+Commons Attribution 2.1 Japan License.
+
+\subsection{Gene Expression}
+A gene expression describes the expression level of gene on the array. This entry returns \Rclass{ExpressionSet} object.
+
+\subsection{Figure}
+BrainStars can be export five type of figures following:
+\begin{itemize}
+  \item exprgraph Barplot of gene expression level by brain regions
+  \item exprmap Gene expression level on brain slice images by brain regions
+  \item switchgraph ...
+  \item switchhist ...
+\end{itemize}
+
+\subsection{Marker}
+Marker genes were ones whose levels in a specific CNS region are higher (or lower) than in others. These marker genes were identified based on the multi-state gene analysis.
+
+\subsection{Search}
+ You can search for entries with gene name, gene symbol, synonym, Entrez GeneID, and probe set ID. (2) Push "search" button for performing keyword search.
+
+\section{Getting Started using brainstars}
+
+Getting expression data from BrainStars is easy.  \Rfunction{getBrainStarsExpression} interprets its input to determine how to get the data from BrainStars and then parse the data into \Rclass{ExpressionSet} object.  Usage is quite simple:
+
+\begin{Schunk}
+\begin{Sinput}
+> library(brainstars)
+\end{Sinput}
+\end{Schunk}
+
+This loads the brainstars library.
+
+\begin{Schunk}
+\begin{Sinput}
+> my.eset <- getBrainStarsExpression("1439627_at")
+\end{Sinput}
+\end{Schunk}
+
+Now, \Robject{my.eset} contains the R data structure (of class \Rclass{ExpressionSet}) that represents the entry 1439627\_at from BrainStars.
+
+We can retrive some kind of barplots from BrainStars.
+
+\begin{Schunk}
+\begin{Sinput}
+> getBrainStarsFigure("1439627_at", "exprgraph")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\begin{Sinput}
+> getBrainStarsFigure("1439627_at", "exprmap")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\begin{Sinput}
+> getBrainStarsFigure("1439627_at", "switchgraph")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\begin{Sinput}
+> getBrainStarsFigure("1439627_at", "switchhist")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\end{Schunk}
+
+You can find "id.type.png" files in current directory.
+
+\begin{Schunk}
+\begin{Sinput}
+> recep.list <- getBrainStarsSearch("receptor/10,5")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\begin{Sinput}
+> recep.count <- getBrainStarsSearch("receptor/count")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\end{Schunk}
+
+Markers,
+\begin{Schunk}
+\begin{Sinput}
+> my.genes.json <- getBrainStarsMarker("high/LS/count")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+http://brainstars.org/marker/high/LS/count?content-type=application/json 
+Done.
+\end{Soutput}
+\end{Schunk}
+
+Keyword search,
+\begin{Schunk}
+\begin{Sinput}
+> recep.list <- getBrainStarsSearch("receptor/10,5")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\begin{Sinput}
+> recep.count <- getBrainStarsSearch("receptor/count")
+\end{Sinput}
+\begin{Soutput}
+Downloading...
+Done.
+\end{Soutput}
+\end{Schunk}
+
+\section{Brainstars Data Structures}
+The brainstars data structures ...
+
+\section{Conclusion}
+The brainstars package provides a ...
+\end{document}

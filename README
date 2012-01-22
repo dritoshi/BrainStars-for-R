@@ -1,7 +1,7 @@
 BrainStars API client for R
 
 Itoshi NIKAIDO <dritoshi@gmail.com>
-Copyright (C) 2009. Itoshi NIKAIDO. GPL 2
+Copyright (C) 2012. Itoshi NIKAIDO.
 
 This R library can search and get gene expression data and plots
 from BrainStars (or B*, http://brainstars.org/).
@@ -24,3 +24,9 @@ GeneChip Mouse Genome 430 2.0 arrays. Expression values were then
 summarized with the RMA method. After several analysis with the
 expression data, the data and analysis results were stored in the
 BrainStars database.
+
+BrainStars database has a REST API to query gene expression data and
+some kind of figures written by Dr. Takeya Kasukawa. This package is
+wrapper for BrainStars REST API in R. BrainStars data, images and
+texts (excluding ABA data and images) are licensed under a Creative
+Commons Attribution 2.1 Japan License.
