@@ -40,115 +40,46 @@
 #'
 NULL
 
-#' Get raw expression profile by one gene
-#'
-#' This function get a gene expression profile from BrainStars
-#'
-#' @usage getBrainStarsExpression(id)
-#' @param id Affymetrix GeneChip ID (Mouse Genome 430 2.0 array)
-#' @keywords bio
-#' @export
-#' @examples
-#' my.eset <- getBrainStarsExpression("1439627_at")
-getBrainStarsExpression <- function(id) {
-  
-  base.url    <- "http://brainstars.org/probeset/"
-  url.options <- "/exprvalues.csv"
-  url         <- paste(base.url, id, url.options, sep="")
+setClass("BrainStars",
+  representation(
+    query    = "character",
+    response = "character",
+    base.url = "character",    
+    api.name = "character"
+  ),
+  prototype(
+    query    = "receptor/1,5",
+    response = "",
+    base.url = "http://brainstars.org/",
+    api.name = "search"
+  ),
+)
 
-  expr <- read.csv(url, row.names=1)
-  eset <- new("ExpressionSet", expr = as.matrix(expr) )
-  return(eset)
-}
-
-#' Get barplot of gene expression profile by one gene
-#'
-#' This function get a barplotof gene expression profile from BrainStars
-#'
-#' @usage getBrainStarsFigure(id, fig.type)
-#' @param id Affymetrix GeneChip ID (Mouse Genome 430 2.0 array)
-#' @param fig.type Figure type
-#' @keywords bio
-#' @export
-#' @examples
-#' getBrainStarsFigure("1439627_at", "exprgraph")
-#' getBrainStarsFigure("1439627_at", "exprmap")
-#' getBrainStarsFigure("1439627_at", "switchgraph")
-#' getBrainStarsFigure("1439627_at", "switchhist")
-#' getBrainStarsFigure("1439627_at", "switchmap")
-getBrainStarsFigure <- function(id, fig.type) {
-  
-  base.url    <- "http://brainstars.org/probeset/"
-  url.option.list <- c("exprgraph", "exprmap", "switchgraph", "switchhist", "switchmap")
-
-  if (sum(url.option.list == fig.type) != 1) {
-    error.meg <- "Specify figure type."
-    error.meg <- paste(error.meg, paste(url.option.list, collapse=", "))
-    stop(warn=error.meg)
+setMethod("initialize", "BrainStars",
+  function(.Object, query, api.name) {
+    .Object@query    <- query
+    .Object@api.name <- api.name
+    .Object@response <- .getBrainStars(.Object)
+    .Object
   }
+)
 
-  cat("Downloading...\n")
-  url         <- paste(base.url, id, "/", fig.type, ".png", sep="")
-  file.name   <- paste(id, ".", fig.type, ".png", sep="")
-  plot <- getBinaryURL(url)
-  cat("Done.\n")
-  
-  writeBin(plot, file.name)
-  invisible(plot)
-}
+.getBrainStars <- function(object) {
+  url.option <- "?content-type=application/json"
+  url <- paste(
+    object@base.url,
+    object@api.name,  "/",
+    object@query,
+    url.option,
+    sep=""
+  )
+  #cat("Download data from", url, "\n")
+  response = getURL(url)
 
-#' Keyword search
-#'
-#' This function search by keyword in BrainStars
-#'
-#' @usage getBrainStarsSearch(keyword)
-#' @param keyword keyword
-#' @keywords bio
-#' @export
-#' @examples
-#' recep.list  <- getBrainStarsSearch("receptor/10,5")
-#' recep.count <- getBrainStarsSearch("receptor/count")
-getBrainStarsSearch <- function(keyword) {
-  
-  base.url    <- "http://brainstars.org/search/"
-
-#  if (sum(keyword) != 1) {
-#    error.meg <- "Input keyword type."
-#    error.meg <- paste(error.meg, paste(keyword, collapse=", "))
-#    stop(warn=error.meg)
-#  }
-
-  cat("Downloading...\n")
-  url         <- paste(base.url, keyword, sep="")
-  cat("Done.\n")
-  results <- getURL(url)
-  results <- unlist(strsplit(results, "\n"))
-  return(results)
-  
-#  writeBin(plot, file.name)
-#  invisible(plot)
-}
-
-#' Get brain region specific markers
-#'
-#' This function get brain region specific markers in BrainStars
-#'
-#' @usage getBrainStarsMarker(keyword)
-#' @param keyword keyword
-#' @keywords bio
-#' @export
-#' @examples
-#' my.genes.json <- getBrainStarsMarker("high/LS/count")
-getBrainStarsMarker <- function(keyword) {
-  
-  base.url    <- "http://brainstars.org/marker/"
-  json.option <- "?content-type=application/json"
-  
-  cat("Downloading...\n")
-  url         <- paste(base.url, keyword, json.option, sep="")
-  cat(url, "\n")
-  cat("Done.\n")
-  results <- getURL(url)
-  #results <- unlist(strsplit(results, "\n"))
-  return(results)
+  # check error
+  if (length(grep("\\*\\*\\*ERROR\\*\\*\\*", response)) > 0) {
+    response <- paste('{ "error":"', "No hit.\"\n", '"details":', response, '" }', sep="")
+    stop(warn = response)
+  }
+  return(response)
 }

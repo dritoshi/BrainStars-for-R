@@ -1,25 +1,33 @@
 \name{getBrainStarsFigure}
 \alias{getBrainStarsFigure}
-\title{Get barplot of gene expression profile by one gene}
+\title{Get plot of gene expression profile by one gene}
 \usage{
-  getBrainStarsFigure(id, fig.type)
+  getBrainStarsFigure(query, fig.type, fig.format)
 }
 \arguments{
-  \item{id}{Affymetrix GeneChip ID (Mouse Genome 430 2.0
-  array)}
+  \item{query}{id Affymetrix GeneChip ID (Mouse Genome 430
+  2.0 array)}
 
-  \item{fig.type}{Figure type}
+  \item{fig.type}{"exprmap", "exprgraph", "switchhist",
+  "switchgraph", "switchmap", "multihist", "multigraph",
+  "multimap"}
+
+  \item{fig.format}{"png" or "pdf"}
 }
 \description{
-  This function get a barplotof gene expression profile
-  from BrainStars
+  This function get plot of gene expression profile from
+  BrainStars
 }
 \examples{
-getBrainStarsFigure("1439627_at", "exprgraph")
-getBrainStarsFigure("1439627_at", "exprmap")
-getBrainStarsFigure("1439627_at", "switchgraph")
-getBrainStarsFigure("1439627_at", "switchhist")
-getBrainStarsFigure("1439627_at", "switchmap")
+getBrainStarsFigure("1439627_at", "exprmap",     "png")
+getBrainStarsFigure("1439627_at", "exprgraph",   "png")
+
+getBrainStarsFigure("1439627_at", "switchhist",  "pdf")
+getBrainStarsFigure("1439627_at", "switchgraph", "pdf")
+getBrainStarsFigure("1439627_at", "switchmap",   "pdf")
+
+getBrainStarsFigure("1439627_at", "multihist",  "png")
+getBrainStarsFigure("1439627_at", "multigraph", "png")
+getBrainStarsFigure("1439627_at", "multimap",   "png")
 }
-\keyword{bio}
 

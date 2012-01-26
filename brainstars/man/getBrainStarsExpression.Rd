@@ -1,19 +1,20 @@
 \name{getBrainStarsExpression}
 \alias{getBrainStarsExpression}
-\title{Get raw expression profile by one gene}
+\title{Retreive a list of expression profile from BrainStars}
 \usage{
-  getBrainStarsExpression(id)
+  getBrainStarsExpression(queries)
 }
 \arguments{
-  \item{id}{Affymetrix GeneChip ID (Mouse Genome 430 2.0
-  array)}
+  \item{queries}{vector of Affymetrix GeneChip IDs (Mouse
+  Genome 430 2.0 array)}
 }
 \description{
-  This function get a gene expression profile from
-  BrainStars
+  This function queries a list of gene expression profile
+  from BrainStars
 }
 \examples{
-my.eset <- getBrainStarsExpression("1439627_at")
+mk.genes <- getBrainStarsMarker("low/SCN/all")
+mk.ids   <- probeSetIDs(mk.genes)
+mk.eset  <- getBrainStarsExpression(mk.ids)
 }
-\keyword{bio}
 

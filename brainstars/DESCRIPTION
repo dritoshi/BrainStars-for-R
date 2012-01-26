@@ -1,8 +1,8 @@
 Package: brainstars
 Type: Package
 Title: query gene expression data and plots from BrainStars (B*)
-Version: 0.0.1
-Date: 2012-01-21
+Version: 0.0.2
+Date: 2012-01-24
 Author: Itoshi NIKAIDO <dritoshi@gmail.com>
 Maintainer: Itoshi NIKAIDO <dritoshi@gmail.com>
 Description: This package can search and get gene expression data
@@ -11,11 +11,17 @@ Description: This package can search and get gene expression data
     genome-wide expression profile at 51 adult mouse CNS regions.
 Depends:
     methods,
+    RJSONIO,
     RCurl,
-    Biobase,
-    rjson
+    Biobase
 License: Artistic-2.0
 LazyLoad: yes
 Collate:
     'brainstars.r'
+    'entry.r'
+    'list.r'
+    'search.r'
+    'annotation.r'
+    'expression.r'
+    'figure.r'
 biocViews: Microarray, DataImport

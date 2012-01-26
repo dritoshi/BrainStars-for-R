@@ -1,18 +1,34 @@
 \name{getBrainStarsMarker}
 \alias{getBrainStarsMarker}
-\title{Get brain region specific markers}
+\title{Gene Marker search in BrainStars}
 \usage{
-  getBrainStarsMarker(keyword)
+  getBrainStarsMarker(query)
 }
 \arguments{
-  \item{keyword}{keyword}
+  \item{query}{keyword}
 }
 \description{
-  This function get brain region specific markers in
-  BrainStars
+  This function queries gene marker from BrainStars using
+  by List API.
+}
+\details{
+  List API is for retrieving a list of gene marker
+  candidates. Keyword search format:
+  {high,low}/(region)/(offset),(limit).
+
+  Count of entriest search format:
+  {high,low}/(region)/count.
+
+  "high" is highly expressed regions. "low" is low
+  expressed regions. (region) means CNS region name.
+
+  output: If the result has at least one hit entries, a
+  list of entry IDs is returned in RJSONIN format. If not,
+  404 Not found error code is returned. "offset,limit" can
+  be used to retrieve a part of hit entries. If
+  "offset,limit" is not given, all hits are returned.
 }
 \examples{
-my.genes.json <- getBrainStarsMarker("high/LS/count")
+mk.genes <- getBrainStarsMarker("low/SCN/all")
 }
-\keyword{bio}
 
