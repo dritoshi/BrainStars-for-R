@@ -15,7 +15,7 @@
 \newcommand{\Rclass}[1]{{\textit{#1}}}
 \newcommand{\Rmethod}[1]{{\textit{#1}}}
 
-\author{Itoshi Nikaido$^\ddagger$\footnote{dritoshi@gmail.com} \and Takeya Kasukawa$^\ddagger$}
+\author{Itoshi Nikaido$^\ddagger$\footnote{dritoshi@gmail.com} \and Takeya Kasukawa$^\ddagger$\footnote{kasukawa@gmail.com}}
 \usepackage{Sweave}
 \begin{document}
 \title{Using the BrainStars package}
@@ -102,7 +102,7 @@ You can access the matrix of expression in the following method:
 \end{Schunk}
 
 \subsection{Getting figures}
-We can retrive some kind of barplots and brain map images from BrainStars.
+We can retrieve some kind of barplots and brain map images from BrainStars.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -170,36 +170,36 @@ BrainStars has results of some higher-order biological anlaysis. You can retrive
 Marker genes were ones whose levels in a specific CNS region are higher (or lower) than in others.
 \begin{Schunk}
 \begin{Sinput}
-> mk.genes <- getBrainStarsMarker("high/LS/count")
+> mk.genes.count <- getBrainStarsMarker("high/LS/count")
 \end{Sinput}
 \end{Schunk}
 \subsubsection{Multistate and onestate genes}
-Multi-state genes are ones with multi-modal expression patterns (i.e. expression of discretized states) or multi-modal patterns. For each probeset, CNS regions were grouped into the several "states" according to their expression values with variational Bayesian inference to fit to a gaussian mixture model. Multi-state genes, which have two or more states, were shown in the list. one-state genes, which have only one state, were not shown in this view.
+Multi-state genes are ones with multi-modal expression patterns (i.e. expression of discretized states) or multi-modal patterns. For each probeset, CNS regions were grouped into the several "states" according to their expression values with variational Bayesian inference to fit to a gaussian mixture model. Multi-state genes, which have two or more states, were shown in the list. one-state genes, which have only one state, were not shown.
 \begin{Schunk}
 \begin{Sinput}
-> ms.genes <- getBrainStarsMultistate("low/SCN/all")
+> ms.genes.list <- getBrainStarsMultistate("low/SCN/all")
 \end{Sinput}
 \end{Schunk}
 
 One-state genes are expressed unimodally across the CNS regions, and approximately followed a log-normal distribution. Some one-state genes exhibited stable expression patterns, characterized by the log-normal distribution with a small variance, whereas others had more variable expression and showed the log-normal with a larger variance.
 \begin{Schunk}
 \begin{Sinput}
-> os.genes <- getBrainStarsOnestate("count")
+> os.genes.count <- getBrainStarsOnestate("count")
 \end{Sinput}
 \end{Schunk}
 
 \subsubsection{Retrive a gene list by genes by gene family / categories}
-The view provides lists of genes in gene families or in a gene categories. 
+The function provides lists of genes in gene families or in a gene categories. 
 \begin{Schunk}
 \begin{Sinput}
-> gfc.genes1 <- getBrainStarsGeneFamCat("tf//count")
-> gfc.genes2 <- getBrainStarsGeneFamCat("tf/terminal/all")
-> gfc.genes3 <- getBrainStarsGeneFamCat("tf/terminal/count")
+> gfc.genes1.count <- getBrainStarsGeneFamCat("tf//count")
+> gfc.genes2.list <- getBrainStarsGeneFamCat("tf/terminal/all")
+> gfc.genes3.count <- getBrainStarsGeneFamCat("tf/terminal/count")
 \end{Sinput}
 \end{Schunk}
 
 \subsubsection{Inferred connections among CNS regions by neurotransmitter/neurohormone}
-In the CNS, various neurohormones (NHs) and neurotransmitters (NTs) are secreted from neurons to convey information among distinct regions. The view shows inferred interconnections among CNS regions by expression data (especially multi-state expression) for NH and NT (NH/NT) genes. To analyze the expression patterns of the NH/NT genes, a list that included the genes for the ligands themselves and those for enzymes that were rate-limiting in the biosynthesis of these ligands was first made. Here both of these categories were termed as "ligand" genes. the genes for NH/NT receptor proteins (i.e., "receptor" genes) were also included. Next, a list of connection among CNS regions that a state of a ligand gene of a NH/NT is "on" (or "up") in one region, and a state of a receptor gene of the NH/NT is "on" (or "up") in the other region was made.
+In the CNS, various neurohormones (NHs) and neurotransmitters (NTs) are secreted from neurons to convey information among distinct regions. The function get inferred interconnections among CNS regions by expression data (especially multi-state expression) for NH and NT (NH/NT) genes. To analyze the expression patterns of the NH/NT genes, a list that included the genes for the ligands themselves and those for enzymes that were rate-limiting in the biosynthesis of these ligands was first made. Here both of these categories were termed as "ligand" genes. the genes for NH/NT receptor proteins (i.e., "receptor" genes) were also included. Next, a list of connection among CNS regions that a state of a ligand gene of a NH/NT is "on" (or "up") in one region, and a state of a receptor gene of the NH/NT is "on" (or "up") in the other region was made.
 \begin{Schunk}
 \begin{Sinput}
 > os.genes <- getBrainStarsNtNh("high/SCN/ME/all")

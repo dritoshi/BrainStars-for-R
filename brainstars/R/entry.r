@@ -1,6 +1,6 @@
 # Entry API
 
-#' Get a entry information in JSON format
+#' Get an entry information in JSON format
 #'
 #' This function get entry information (annotation, expressions, links)
 #' in JSON format from BrainStars using by Entry API.

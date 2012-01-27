@@ -1,7 +1,7 @@
 Package: brainstars
 Type: Package
 Title: query gene expression data and plots from BrainStars (B*)
-Version: 0.0.2
+Version: 1.0.0
 Date: 2012-01-24
 Author: Itoshi NIKAIDO <dritoshi@gmail.com>
 Maintainer: Itoshi NIKAIDO <dritoshi@gmail.com>
@@ -24,4 +24,4 @@ Collate:
     'annotation.r'
     'expression.r'
     'figure.r'
-biocViews: Microarray, DataImport
+biocViews: Microarray, OneChannel, DataImport

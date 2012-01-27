@@ -1,6 +1,6 @@
 \name{getBrainStarsEntry}
 \alias{getBrainStarsEntry}
-\title{Get a entry information in JSON format}
+\title{Get an entry information in JSON format}
 \usage{
   getBrainStarsEntry(query)
 }
