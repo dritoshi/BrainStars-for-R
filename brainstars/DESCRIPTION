@@ -10,9 +10,11 @@ Description: This package can search and get gene expression data
     expression database of the adult mouse brain. The database has
     genome-wide expression profile at 51 adult mouse CNS regions.
 Depends:
-    methods,
-    RJSONIO,
     RCurl,
+    Biobase,
+    methods
+Imports:
+    RJSONIO,
     Biobase
 License: Artistic-2.0
 LazyLoad: yes
