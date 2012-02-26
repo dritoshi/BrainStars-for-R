@@ -15,6 +15,8 @@
 #' @usage getBrainStarsExpression(queries)
 #' @param queries vector of Affymetrix GeneChip IDs (Mouse Genome 430 2.0 array)
 #' @export
+#' @importClassesFrom Biobase ExpressionSet
+#' @importMethodsFrom Biobase annotation exprs featureNames pData rowQ varLabels "featureNames<-" "sampleNames<-"
 #' @examples
 #' mk.genes <- getBrainStarsMarker("low/SCN/all")
 #' mk.ids   <- probeSetIDs(mk.genes)
@@ -36,7 +38,7 @@ getBrainStarsExpression <- function(queries) {
     }
   }
   
-  eset <- new("ExpressionSet", expr = expr.mat )
+  eset <- new("ExpressionSet", expr = expr.mat)
   featureNames(eset) <- queries
   sampleNames(eset)  <- sample.names
   

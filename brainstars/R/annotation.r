@@ -5,6 +5,7 @@
 #' @usage probeSetIDs(rjsonio)
 #' @param rjsonio result of List or Search API
 #' @export
+#' @importMethodsFrom RJSONIO fromJSON 
 #' @examples
 #' mk.genes <- getBrainStarsMarker("low/SCN/all")
 #' mk.ids   <- probeSetIDs(mk.genes)
@@ -25,6 +26,7 @@ probeSetIDs <- function(rjsonio) {
 #' @usage geneSymbols(rjsonio)
 #' @param rjsonio result of List or Search API
 #' @export
+#' @importMethodsFrom RJSONIO fromJSON 
 #' @examples
 #' mk.genes <- getBrainStarsMarker("low/SCN/all")
 #' mk.genesymbols   <- geneSymbols(mk.genes)
@@ -45,6 +47,7 @@ geneSymbols <- function(rjsonio) {
 #' @usage geneNames(rjsonio)
 #' @param rjsonio result of List or Search API
 #' @export
+#' @importMethodsFrom RJSONIO fromJSON 
 #' @examples
 #' mk.genes <- getBrainStarsMarker("low/SCN/all")
 #' mk.genenames   <- geneNames(mk.genes)

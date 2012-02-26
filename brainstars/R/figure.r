@@ -11,6 +11,7 @@
 #' @param fig.format "png" or "pdf"
 #'
 #' @export
+#' @importMethodsFrom RJSONIO fromJSON
 #' @examples
 #' getBrainStarsFigure("1439627_at", "exprmap",     "png")
 #' getBrainStarsFigure("1439627_at", "exprgraph",   "png")

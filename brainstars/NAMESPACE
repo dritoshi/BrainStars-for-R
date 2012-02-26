@@ -1,16 +1,3 @@
-importClassesFrom(Biobase, ExpressionSet)
-
-importMethodsFrom(RJSONIO, fromJSON)
-importMethodsFrom(Biobase,
-    annotation,
-    exprs,
-    featureNames,
-    pData,
-    rowQ,
-    varLabels,
-    "featureNames<-",
-    "sampleNames<-")
-
 export(geneNames)
 export(geneSymbols)
 export(getBrainStars)
@@ -23,3 +10,13 @@ export(getBrainStarsMultistate)
 export(getBrainStarsNtNh)
 export(getBrainStarsOnestate)
 export(probeSetIDs)
+importClassesFrom(Biobase,ExpressionSet)
+importMethodsFrom(Biobase,"featureNames<-")
+importMethodsFrom(Biobase,"sampleNames<-")
+importMethodsFrom(Biobase,annotation)
+importMethodsFrom(Biobase,exprs)
+importMethodsFrom(Biobase,featureNames)
+importMethodsFrom(Biobase,pData)
+importMethodsFrom(Biobase,rowQ)
+importMethodsFrom(Biobase,varLabels)
+importMethodsFrom(RJSONIO,fromJSON)
