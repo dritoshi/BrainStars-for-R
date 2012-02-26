@@ -26,8 +26,19 @@
 \tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Overview of BrainStars} 
+\section{Overview of BrainStars package}
+This BrainStars package can search and get gene expression data
+and some kind of plots from BrainStars (B*). BrainStars is a 
+quantitative expression database of the adult mouse brain. 
+The database has genome-wide expression profile at 51 adult mouse 
+CNS regions.  The BrainStars database has a REST API to query gene 
+expression data, annotations and some kind of figures written by 
+Dr. Takeya Kasukawa.  This package is wrapper for BrainStars REST 
+API in R. BrainStars gene expression data, images and texts 
+(excluding ABA data and images) are licensed under a Creative 
+Commons Attribution 2.1 Japan License.
 
+\section{Overview of BrainStars database}
 BrainStars is a quantitative expression database of the adult
 mouse brain. The database has genome-wide expression profile at 51
 adult mouse CNS regions.
@@ -46,12 +57,6 @@ GeneChip Mouse Genome 430 2.0 arrays. Expression values were then
 summarized with the RMA method. After several analysis with the
 expression data, the data and analysis results were stored in the
 BrainStars database.
-
-BrainStars database has a REST API to query gene expression data, 
-annotations and some kind of figures written by Dr. Takeya Kasukawa. 
-This package is wrapper for BrainStars REST API in R. BrainStars data, 
-images and texts (excluding ABA data and images) are licensed under a 
-Creative Commons Attribution 2.1 Japan License.
   
 \section{Getting Started using BrainStars package}
 \subsection{Getting expression profiles by ProbeSet IDs}
@@ -106,25 +111,25 @@ We can retrieve some kind of barplots and brain map images from BrainStars.
 
 \begin{Schunk}
 \begin{Sinput}
-> getBrainStarsFigure("1439627_at", "exprgraph", "png")
+> getBrainStarsFigure("1439627_at", "exprgraph",   "png")
 \end{Sinput}
 \begin{Soutput}
 Save figure file at 1439627_at.exprgraph.png 
 \end{Soutput}
 \begin{Sinput}
-> getBrainStarsFigure("1439627_at", "exprmap", "pdf")
+> getBrainStarsFigure("1439627_at", "exprmap",     "png")
 \end{Sinput}
 \begin{Soutput}
-Save figure file at 1439627_at.exprmap.pdf 
+Save figure file at 1439627_at.exprmap.png 
 \end{Soutput}
 \begin{Sinput}
-> getBrainStarsFigure("1439627_at", "switchgraph", "png")
+> getBrainStarsFigure("1439627_at", "switchgraph", "pdf")
 \end{Sinput}
 \begin{Soutput}
-Save figure file at 1439627_at.switchgraph.png 
+Save figure file at 1439627_at.switchgraph.pdf 
 \end{Soutput}
 \begin{Sinput}
-> getBrainStarsFigure("1439627_at", "switchhist", "png")
+> getBrainStarsFigure("1439627_at", "switchhist",  "png")
 \end{Sinput}
 \begin{Soutput}
 Save figure file at 1439627_at.switchhist.png 
@@ -143,6 +148,12 @@ You can find "id.type.png" files in local current directory. See detail of image
   \centering
   \includegraphics{exprmap.png}
   \caption{exprmap}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics{switchhist.png}
+  \caption{switchhist}
 \end{figure}
 
 \subsection{Keyword search}
@@ -193,7 +204,7 @@ The function provides lists of genes in gene families or in a gene categories.
 \begin{Schunk}
 \begin{Sinput}
 > gfc.genes1.count <- getBrainStarsGeneFamCat("tf//count")
-> gfc.genes2.list <- getBrainStarsGeneFamCat("tf/terminal/all")
+> gfc.genes2.list  <- getBrainStarsGeneFamCat("tf/terminal/all")
 > gfc.genes3.count <- getBrainStarsGeneFamCat("tf/terminal/count")
 \end{Sinput}
 \end{Schunk}
