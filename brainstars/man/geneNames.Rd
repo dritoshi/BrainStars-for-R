@@ -7,6 +7,9 @@
 \arguments{
   \item{rjsonio}{result of List or Search API}
 }
+\value{
+  A cheracter vector of Gene Names.
+}
 \description{
   This function is extraction Gene Name from result of List
   or Search API

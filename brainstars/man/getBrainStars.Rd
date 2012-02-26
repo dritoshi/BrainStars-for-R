@@ -7,6 +7,9 @@
 \arguments{
   \item{query}{keyword}
 }
+\value{
+  A character vector of Search API response in JSON.
+}
 \description{
   This function queries entry information from BrainStars
   using by Search API.

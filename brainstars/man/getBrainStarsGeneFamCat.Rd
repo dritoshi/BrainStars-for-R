@@ -7,6 +7,9 @@
 \arguments{
   \item{query}{keyword}
 }
+\value{
+  A character vector of list API response in JSON.
+}
 \description{
   This function queries a list of genes by gene family or
   categories name from BrainStars using by List API.

@@ -8,6 +8,9 @@
   \item{query}{Affymetrix GeneChip ID (Mouse Genome 430 2.0
   array)}
 }
+\value{
+  A character vector of entry API response in JSON.
+}
 \description{
   This function get entry information (annotation,
   expressions, links) in JSON format from BrainStars using

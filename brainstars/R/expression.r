@@ -14,6 +14,7 @@
 #'
 #' @usage getBrainStarsExpression(queries)
 #' @param queries vector of Affymetrix GeneChip IDs (Mouse Genome 430 2.0 array)
+#' @return An object of ExpressionSet is returned.
 #' @export
 #' @importClassesFrom Biobase ExpressionSet
 #' @importMethodsFrom Biobase annotation exprs featureNames pData rowQ varLabels "featureNames<-" "sampleNames<-"

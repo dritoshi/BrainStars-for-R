@@ -14,6 +14,10 @@
 
   \item{fig.format}{"png" or "pdf"}
 }
+\value{
+  A "raw" vector of figure image. The figure image file is
+  saved current directory.
+}
 \description{
   This function get plot of gene expression profile from
   BrainStars

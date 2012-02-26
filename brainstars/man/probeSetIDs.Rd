@@ -7,6 +7,9 @@
 \arguments{
   \item{rjsonio}{result of List or Search API}
 }
+\value{
+  A cheracter vector of ProbeSet IDs.
+}
 \description{
   This function is extraction probeset id from result of
   List or Search API

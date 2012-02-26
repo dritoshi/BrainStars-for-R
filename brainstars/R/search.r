@@ -6,6 +6,7 @@
 #'
 #' @usage getBrainStars(query)
 #' @param query keyword
+#' @return A character vector of Search API response in JSON.
 #' @details Search API is for keyword search and is based on Tokyo Manifesto and
 #' TogoWS REST interface. Keyword for retrieving a list of hit entries:
 #' (query+string)[/(offset),(limit)].

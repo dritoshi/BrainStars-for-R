@@ -4,8 +4,9 @@
 #'
 #' @usage probeSetIDs(rjsonio)
 #' @param rjsonio result of List or Search API
+#' @return A cheracter vector of ProbeSet IDs.
 #' @export
-#' @importMethodsFrom RJSONIO fromJSON 
+#' @importMethodsFrom RJSONIO fromJSON
 #' @examples
 #' mk.genes <- getBrainStarsMarker("low/SCN/all")
 #' mk.ids   <- probeSetIDs(mk.genes)
@@ -25,6 +26,7 @@ probeSetIDs <- function(rjsonio) {
 #'
 #' @usage geneSymbols(rjsonio)
 #' @param rjsonio result of List or Search API
+#' @return A cheracter vector of Gene Symbols.
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON 
 #' @examples
@@ -36,7 +38,7 @@ geneSymbols <- function(rjsonio) {
   } else if (length(fromJSON(rjsonio)$result) > 0) {
     unlist(lapply(fromJSON(rjsonio)$result, function(x) x$symbol))
   } else {
-    msg <-  "Input result of List or Search API."
+    msg <- "Input result of List or Search API."
     stop(warn=msg)
   }    
 }
@@ -46,6 +48,7 @@ geneSymbols <- function(rjsonio) {
 #'
 #' @usage geneNames(rjsonio)
 #' @param rjsonio result of List or Search API
+#' @return A cheracter vector of Gene Names.
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON 
 #' @examples

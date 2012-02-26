@@ -6,6 +6,7 @@
 #'
 #' @usage getBrainStarsMarker(query)
 #' @param query keyword
+#' @return A character vector of list API response in JSON.
 #' @details List API is for retrieving a list of gene marker candidates.
 #' Keyword search format: {high,low}/(region)/(offset),(limit).
 #'
@@ -36,6 +37,7 @@ getBrainStarsMarker <- function(query) {
 #'
 #' @usage getBrainStarsMultistate(query)
 #' @param  query keyword
+#' @return A character vector of list API response in JSON.
 #' @details List API is for retrieving a list of multi-state gene candidates.
 #' Keyword search format: {high,up,low,down}/(region)/(offset),(limit).
 #'
@@ -69,6 +71,7 @@ getBrainStarsMultistate <- function(query) {
 #'
 #' @usage getBrainStarsOnestate(query)
 #' @param query keyword
+#' @return A character vector of list API response in JSON.
 #' @details List API is for retrieving a list of one-state gene candidates.
 #' Keyword search format: (offset),(limit).
 #'
@@ -96,6 +99,7 @@ getBrainStarsOnestate <- function(query) {
 #'
 #' @usage getBrainStarsNtNh(query)
 #' @param query keyword
+#' @return A character vector of list API response in JSON.
 #' @details List API is for retrieving inferred connections among CNS
 #' regions by neurotransmitter/neurohormone (ntnh).
 #'
@@ -132,6 +136,7 @@ getBrainStarsNtNh <- function(query) {
 #'
 #' @usage getBrainStarsGeneFamCat(query)
 #' @param query keyword
+#' @return A character vector of list API response in JSON.
 #' @details List API is for retrieving genes in specific gene family or categories.
 #'
 #' Keyword search format: (category)/(keyword)/(offset),(limit)

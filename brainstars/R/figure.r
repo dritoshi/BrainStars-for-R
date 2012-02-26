@@ -9,6 +9,7 @@
 #' @param fig.type "exprmap", "exprgraph", "switchhist", "switchgraph",
 #'  "switchmap", "multihist", "multigraph", "multimap"
 #' @param fig.format "png" or "pdf"
+#' @return A "raw" vector of figure image. The figure image file is saved current directory.
 #'
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON

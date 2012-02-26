@@ -7,6 +7,9 @@
 \arguments{
   \item{query}{keyword}
 }
+\value{
+  A character vector of list API response in JSON.
+}
 \description{
   This function queries inferred connections among CNS
   regions by neurotransmitter/neurohormone (ntnh) from

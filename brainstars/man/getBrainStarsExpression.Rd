@@ -8,6 +8,9 @@
   \item{queries}{vector of Affymetrix GeneChip IDs (Mouse
   Genome 430 2.0 array)}
 }
+\value{
+  An object of ExpressionSet is returned.
+}
 \description{
   This function queries a list of gene expression profile
   from BrainStars

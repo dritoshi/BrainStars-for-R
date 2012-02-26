@@ -7,6 +7,7 @@
 #'
 #' @usage getBrainStarsEntry(query)
 #' @param query Affymetrix GeneChip ID (Mouse Genome 430 2.0 array)
+#' @return A character vector of entry API response in JSON.
 #'
 #' @export
 #' @examples
