@@ -1,7 +1,7 @@
-%\VignetteIndexEntry{brainstars}
-%\VignetteDepends{brainstars}
-%\VignetteKeywords{brainstars}
-%\VignettePackage{brainstars}
+%\VignetteIndexEntry{BrainStars}
+%\VignetteDepends{BrainStars}
+%\VignetteKeywords{BrainStars}
+%\VignettePackage{BrainStars}
 \documentclass[12pt,fullpage]{article}
 
 \usepackage{amsmath,epsfig,pstricks,fullpage}
@@ -26,7 +26,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview of BrainStars package}
-This BrainStars package can search and get gene expression data
+The BrainStars package can search and get gene expression data
 and some kind of plots from BrainStars (B*). BrainStars is a 
 quantitative expression database of the adult mouse brain. 
 The database has genome-wide expression profile at 51 adult mouse 
@@ -60,14 +60,14 @@ BrainStars database.
 \section{Getting Started using BrainStars package}
 \subsection{Getting expression profiles by ProbeSet IDs}
 Getting expression data from BrainStars is easy.  \Rfunction{getBrainStarsExpression} 
-aquires gene expression profile and then parse the data into \Rclass{ExpressionSet} 
+quires gene expression profile and then parse the data into \Rclass{ExpressionSet} 
 object.  Usage is quite simple:
 
 <<>>=
-library(brainstars)
+library("BrainStars")
 @ 
 
-This loads the brainstars library.
+This loads the BrainStars library.
 
 <<>>=
 my.eset <- getBrainStarsExpression("1439627_at")
@@ -120,8 +120,8 @@ You can find "id.type.png" files in local current directory. See detail of image
 \subsection{Keyword search}
 The function \Rfunction{getBrainStars} provides keyword search in BrainStars. This function retrives a gene list or count of genes.
 <<>>=
-recep.rjson <- getBrainStars("receptor/10,5")
-recep.count <- getBrainStars("receptor/count")
+recep.rjson <- getBrainStars(query = "receptor/10,5",  type = "search")
+recep.count <- getBrainStars(query = "receptor/count", type = "search")
 @
 The useful ready-to-made functions were provided to extract "gene names", "gene symbols" and "probeset ids" from \Rpackage{RJSON} character object.
 <<>>=
@@ -137,15 +137,27 @@ BrainStars has results of some higher-order biological anlaysis. You can retrive
 \subsubsection{Markers}
 Marker genes were ones whose levels in a specific CNS region are higher (or lower) than in others.
 <<>>=
+mk.genes.count <- getBrainStars(query = "high/LS/count", type = "marker")
+@
+or
+<<>>=
 mk.genes.count <- getBrainStarsMarker("high/LS/count")
 @
 \subsubsection{Multistate and onestate genes}
 Multi-state genes are ones with multi-modal expression patterns (i.e. expression of discretized states) or multi-modal patterns. For each probeset, CNS regions were grouped into the several "states" according to their expression values with variational Bayesian inference to fit to a gaussian mixture model. Multi-state genes, which have two or more states, were shown in the list. one-state genes, which have only one state, were not shown.
 <<>>=
+ms.genes.list <- getBrainStars(query = "low/SCN/all", type = "multistate")
+@
+or
+<<>>=
 ms.genes.list <- getBrainStarsMultistate("low/SCN/all")
 @ 
 
 One-state genes are expressed unimodally across the CNS regions, and approximately followed a log-normal distribution. Some one-state genes exhibited stable expression patterns, characterized by the log-normal distribution with a small variance, whereas others had more variable expression and showed the log-normal with a larger variance.
+<<>>=
+os.genes.count <- getBrainStars(query = "count", type = "onestate")
+@
+or
 <<>>=
 os.genes.count <- getBrainStarsOnestate("count")
 @ 
@@ -156,10 +168,20 @@ The function provides lists of genes in gene families or in a gene categories.
 gfc.genes1.count <- getBrainStarsGeneFamCat("tf//count")
 gfc.genes2.list  <- getBrainStarsGeneFamCat("tf/terminal/all")
 gfc.genes3.count <- getBrainStarsGeneFamCat("tf/terminal/count")
+@
+or
+<<>>=
+gfc.genes1.count <- getBrainStars(query = "tf//count",         type = "genefamily")
+gfc.genes2.list  <- getBrainStars(query = "tf/terminal/all",   type = "genefamily")
+gfc.genes3.count <- getBrainStars(query = "tf/terminal/count", type = "genefamily")
 @ 
 
 \subsubsection{Inferred connections among CNS regions by neurotransmitter/neurohormone}
 In the CNS, various neurohormones (NHs) and neurotransmitters (NTs) are secreted from neurons to convey information among distinct regions. The function get inferred interconnections among CNS regions by expression data (especially multi-state expression) for NH and NT (NH/NT) genes. To analyze the expression patterns of the NH/NT genes, a list that included the genes for the ligands themselves and those for enzymes that were rate-limiting in the biosynthesis of these ligands was first made. Here both of these categories were termed as "ligand" genes. the genes for NH/NT receptor proteins (i.e., "receptor" genes) were also included. Next, a list of connection among CNS regions that a state of a ligand gene of a NH/NT is "on" (or "up") in one region, and a state of a receptor gene of the NH/NT is "on" (or "up") in the other region was made.
+<<>>=
+os.genes <- getBrainStars(query = "high/SCN/ME/all", type = "ntnh")
+@
+or
 <<>>=
 os.genes <- getBrainStarsNtNh("high/SCN/ME/all")
 @ 

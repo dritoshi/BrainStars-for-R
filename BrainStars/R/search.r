@@ -4,7 +4,7 @@
 #' This function queries entry information from BrainStars
 #' using by Search API.
 #'
-#' @usage getBrainStars(query)
+#' @usage getBrainStarsSearch(query)
 #' @param query keyword
 #' @return A character vector of Search API response in JSON.
 #' @details Search API is for keyword search and is based on Tokyo Manifesto and
@@ -23,11 +23,11 @@
 #'    output: The count of hit entries is returned in RJSONIO format
 #' @export
 #' @examples
-#' my.search            <- getBrainStars("receptor")
-#' my.search.offset.num <- getBrainStars("receptor/1,5")
-#' my.search.count      <- getBrainStars("receptor/count")
-getBrainStars <- function(query) {
-  api.name = "search"
-  res = new("BrainStars", query=query, api.name=api.name)
-  return(res@response)
+#' my.search            <- getBrainStarsSearch("receptor")
+#' my.search.offset.num <- getBrainStarsSearch("receptor/1,5")
+#' my.search.count      <- getBrainStarsSearch("receptor/count")
+getBrainStarsSearch <- function(query) {
+  api.name <- "search"
+  res <- getBrainStars(query = query, type = api.name)
+  return(res)
 }

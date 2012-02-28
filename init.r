@@ -1,2 +1,2 @@
 library("devtools")
-load_all("brainstars")
+load_all("BrainStars")

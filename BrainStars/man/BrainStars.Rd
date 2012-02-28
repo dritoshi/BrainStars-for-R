@@ -1,7 +1,8 @@
 \docType{package}
-\name{brainstars}
+\name{BrainStars}
 \alias{brainstars}
-\alias{brainstars-package}
+\alias{BrainStars}
+\alias{BrainStars-package}
 \alias{package-brainstars}
 \title{BrainStars API client for R}
 \description{

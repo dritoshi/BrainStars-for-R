@@ -1,5 +1,3 @@
-## List API
-
 #' Get plot of gene expression profile by one gene
 #'
 #' This function get plot of gene expression profile from BrainStars
@@ -25,9 +23,9 @@
 #' getBrainStarsFigure("1439627_at", "multigraph", "png")
 #' getBrainStarsFigure("1439627_at", "multimap",   "png")
 getBrainStarsFigure <- function(query, fig.type, fig.format) {
-  api.name = "probeset"
-  res = new("BrainStars", query=query, api.name=api.name)
-  o <- fromJSON(res@response)
+  api.name <- "probeset"
+  res <- getBrainStars(query = query, type = api.name)
+  o <- fromJSON(res)
 
   # Figrue Image Format
   image.format.value <- ""

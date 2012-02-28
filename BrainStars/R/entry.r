@@ -13,7 +13,7 @@
 #' @examples
 #' my.entry <- getBrainStarsEntry("1439627_at")
 getBrainStarsEntry <- function(query) {
-  api.name = "probeset"
-  res <- new("BrainStars", query=query, api.name=api.name)
-  return(res@response)
+  api.name <- "probeset"
+  res <- getBrainStars(query = query, type = api.name)
+  return(res)
 }  

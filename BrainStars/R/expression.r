@@ -1,8 +1,8 @@
 .getBrainStarsExpression <- function(query) {
-  api.name = "probeset"
-  res = new("BrainStars", query=query, api.name=api.name)
+  api.name <- "probeset"
+  res <- getBrainStars(query = query, type = api.name)
   
-  url <- fromJSON(res@response)$file1d$csv["href"]
+  url <- fromJSON(res)$file1d$csv["href"]
 
   expr <- read.csv(url, row.names=1)
 

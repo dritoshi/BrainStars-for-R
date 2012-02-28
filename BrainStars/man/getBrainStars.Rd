@@ -1,21 +1,26 @@
 \name{getBrainStars}
 \alias{getBrainStars}
-\title{Keyword search in BrainStars}
+\title{Get various information in BrainStars}
 \usage{
-  getBrainStars(query)
+  getBrainStars(query, type, base.url)
 }
 \arguments{
   \item{query}{keyword}
+
+  \item{type}{BrainStars API name. (search, probeset,
+  marker, multistate, onestate, ntnh and genefamily)}
+
+  \item{base.url}{URL of Brainstars database.}
 }
 \value{
   A character vector of Search API response in JSON.
 }
 \description{
-  This function queries entry information from BrainStars
-  using by Search API.
+  This function queries various information from BrainStars
+  The function is a wrapper of All BrainStars API.
 }
 \details{
-  Search API is for keyword search and is based on Tokyo
+  Brain API is for keyword search and is based on Tokyo
   Manifesto and TogoWS REST interface. Keyword for
   retrieving a list of hit entries:
   (query+string)[/(offset),(limit)].
@@ -33,8 +38,8 @@
   format
 }
 \examples{
-my.search            <- getBrainStars("receptor")
-my.search.offset.num <- getBrainStars("receptor/1,5")
-my.search.count      <- getBrainStars("receptor/count")
+my.search   <- getBrainStars(query = "receptor",   type = "search")
+my.probeset <- getBrainStars(query = "1439627_at", type = "probeset")
+my.tf       <- getBrainStars(query = "tf",         type = "genefamily")
 }
 

@@ -1,8 +1,8 @@
-Package: brainstars
+Package: BrainStars
 Type: Package
 Title: query gene expression data and plots from BrainStars (B*)
-Version: 0.99.1
-Date: 2012-01-24
+Version: 0.99.2
+Date: 2012-02-28
 Author: Itoshi NIKAIDO <dritoshi@gmail.com>
 Maintainer: Itoshi NIKAIDO <dritoshi@gmail.com>
 Description: This package can search and get gene expression data
@@ -19,7 +19,7 @@ Imports:
 License: Artistic-2.0
 LazyLoad: yes
 Collate:
-    'brainstars.r'
+    'BrainStars.r'
     'entry.r'
     'list.r'
     'search.r'

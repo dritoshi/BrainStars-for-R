@@ -26,8 +26,8 @@
 #' mk.genes <- getBrainStarsMarker("low/SCN/all")
 getBrainStarsMarker <- function(query) {
   api.name = "marker"
-  res = new("BrainStars", query=query, api.name=api.name)
-  res@response
+  res <- getBrainStars(query = query, type = api.name)
+  res
 }
 
 # "multistate": multi-state genes
@@ -60,9 +60,9 @@ getBrainStarsMarker <- function(query) {
 #' @examples
 #' ms.genes <- getBrainStarsMultistate("low/SCN/all")
 getBrainStarsMultistate <- function(query) {
-  api.name = "multistate"
-  res = new("BrainStars", query=query, api.name=api.name)
-  res@response  
+  api.name <- "multistate"
+  res <- getBrainStars(query = query, type = api.name)
+  res
 }
 
 #' Search One-state genes search from BrainStars
@@ -87,9 +87,9 @@ getBrainStarsMultistate <- function(query) {
 #' @examples
 #' os.genes <- getBrainStarsOnestate("count")
 getBrainStarsOnestate <- function(query) {
-  api.name = "onestate"
-  res = new("BrainStars", query=query, api.name=api.name)
-  res@response  
+  api.name <- "onestate"
+  res <- getBrainStars(query = query, type = api.name)
+  res
 }
 
 #' Search Inferred connections among CNS regions from BrainStars
@@ -122,9 +122,9 @@ getBrainStarsOnestate <- function(query) {
 #' @examples
 #' os.genes <- getBrainStarsNtNh("high/SCN/ME/all")
 getBrainStarsNtNh <- function(query) {
-  api.name = "ntnh"
-  res = new("BrainStars", query=query, api.name=api.name)
-  res@response
+  api.name <- "ntnh"
+  res <- getBrainStars(query = query, type = api.name)
+  res
 }
 #getBrainStarsNeurohormone     <- function(query) { getBrainStarsNtNh(query) }
 #getBrainStarsNeurotransmitter <- function(query) { getBrainStarsNtNh(query) }
@@ -174,8 +174,8 @@ getBrainStarsNtNh <- function(query) {
 #' gfc.genes2 <- getBrainStarsGeneFamCat("tf/terminal/all")
 #' gfc.genes3 <- getBrainStarsGeneFamCat("tf/terminal/count")
 getBrainStarsGeneFamCat <- function(query) {
-  api.name = "genefamily"
-  res = new("BrainStars", query=query, api.name=api.name)
-  res@response
+  api.name <- "genefamily"
+  res <- getBrainStars(query = query, type = api.name)
+  res
 }  
 #getBrainStarsGeneCategory <- function(query) { getBrainStarsGeneFamily(query) }
