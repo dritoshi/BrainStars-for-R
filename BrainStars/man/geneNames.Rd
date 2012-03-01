@@ -15,7 +15,7 @@
   or Search API
 }
 \examples{
-mk.genes <- getBrainStarsMarker("low/SCN/all")
-mk.genenames   <- geneNames(mk.genes)
+mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
+mk.genenames <- geneNames(mk.genes)
 }
 

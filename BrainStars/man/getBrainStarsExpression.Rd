@@ -17,7 +17,7 @@
 }
 \examples{
 mk.genes <- getBrainStarsMarker("low/SCN/all")
-mk.ids   <- probeSetIDs(mk.genes)
+mk.ids   <- mk.genes[,1]
 mk.eset  <- getBrainStarsExpression(mk.ids)
 }
 

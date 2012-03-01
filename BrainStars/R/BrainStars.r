@@ -71,15 +71,16 @@ NULL
 #' my.tf       <- getBrainStars(query = "tf",         type = "genefamily")
 getBrainStars <- function(
 	base.url = "http://brainstars.org/",
-	type = "search",   # API name
-	query = "receptor/1,5") {
+	type     = "search",   # API name
+	query    = "receptor/1,5",
+	output   = "matrix") {
   url.option <- "?content-type=application/json"
   url <- paste(
     base.url,
     type,  "/",
     query,
     url.option,
-    sep=""
+    sep = ""
   )
   #cat("Download data from", url, "\n")
   response = getURL(url)
@@ -89,5 +90,33 @@ getBrainStars <- function(
     response <- paste('{ "error":"', "No hit.\"\n", '"details":', response, '" }', sep="")
     stop(warn = response)
   }
-  return(response)
+
+  if (output == "json") {
+    return(response)
+  } else {
+    if (type == "probeset") {  ## Entry API
+      return(response)
+    } else {  ## search and list API
+	
+	  ## count API	
+	  if (! identical(grep("count", query), integer(0)) ) {
+	    return( count(response) )
+	  }
+	  ## type = ntnh 
+	  if (type == "ntnh") {
+		return(ntnh2mat(response))
+	  }
+	
+	  # search and list API (excluding type of "ntnh")
+  	  response.mat <- cbind(
+	    probeSetIDs(response),
+	    geneSymbols(response),
+	    geneNames(response)
+      )
+      rownames(response.mat) <- 1:nrow(response.mat)
+      colnames(response.mat) <- c("Probeset ID", "Gene Symbol", "Gene Name")
+
+	  return(response.mat)
+	}
+  }	
 }
