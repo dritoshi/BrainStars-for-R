@@ -1,11 +1,9 @@
 .getBrainStarsExpression <- function(query) {
   api.name <- "probeset"
-  res <- getBrainStars(query = query, type = api.name)
-  
+  res <- getBrainStars(query = query, type = api.name, json = TRUE)  
   url <- fromJSON(res)$file1d$csv["href"]
 
   expr <- read.csv(url, row.names=1)
-
   return(as.matrix(expr))
 }
 #' Retreive a list of expression profile from BrainStars
@@ -28,7 +26,7 @@ getBrainStarsExpression <- function(queries) {
   num.expr    <- ncol(expr)
   num.entries <- length(queries)
   
-  expr.mat <- matrix(nrow=num.entries, ncol=num.expr)
+  expr.mat <- matrix(nrow = num.entries, ncol = num.expr)
 
   expr.mat[1,] <- expr
   sample.names <- colnames(expr)

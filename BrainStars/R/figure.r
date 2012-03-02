@@ -24,7 +24,7 @@
 #' getBrainStarsFigure("1439627_at", "multimap",   "png")
 getBrainStarsFigure <- function(query, fig.type, fig.format) {
   api.name <- "probeset"
-  res <- getBrainStars(query = query, type = api.name)
+  res <- getBrainStars(query = query, type = api.name, json = TRUE)
   o <- fromJSON(res)
 
   # Figrue Image Format

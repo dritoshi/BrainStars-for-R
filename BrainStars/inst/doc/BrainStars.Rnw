@@ -94,6 +94,16 @@ You can access the matrix of expression in the following method:
 my.mat <- exprs(my.esets)
 @ 
 
+\subsection{Getting annotations}
+If you want to get annotation of a ProbeSet, you can get the list of annotation in the following function:
+<<>>=
+my.ann <- getBrainStars(query = "1439627_at", type = "probeset")
+@
+or 
+<<>>=
+my.ann <- getBrainStarsEntry("1439627_at")
+@
+
 \subsection{Getting figures}
 We can retrieve some kind of barplots and brain map images from BrainStars.
 
@@ -135,7 +145,7 @@ The useful ready-to-made functions were provided to extract "gene names", "gene 
 recep.json <- getBrainStars(
   query  = "receptor/10,5",
   type   = "search",
-  output = "json"
+  json   = TRUE
 )
 recep.gns  <- geneNames(recep.json)
 recep.gss  <- geneSymbols(recep.json)

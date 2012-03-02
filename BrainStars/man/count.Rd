@@ -15,7 +15,7 @@
   List or Search count API
 }
 \examples{
-mk.genes <- getBrainStars(query = "low/SCN/count", type = "marker", output = "json")
+mk.genes <- getBrainStars(query = "low/SCN/count", type = "marker", json = TRUE)
 mk.count <- count(mk.genes)
 }
 

@@ -16,7 +16,7 @@
   result of List API
 }
 \examples{
-mk.genes <- getBrainStars(query = "high/SCN/ME/all", type = "ntnh", output = "json")
+mk.genes <- getBrainStars(query = "high/SCN/ME/all", type = "ntnh", json = TRUE)
 mk.ntnh.mat <- ntnh2mat(mk.genes)
 }
 

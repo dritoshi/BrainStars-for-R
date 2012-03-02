@@ -15,7 +15,7 @@
   List or Search API
 }
 \examples{
-mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
+mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", json = TRUE)
 mk.ids   <- probeSetIDs(mk.genes)
 }
 

@@ -8,7 +8,7 @@
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON
 #' @examples
-#' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
+#' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", json = TRUE)
 #' mk.ids   <- probeSetIDs(mk.genes)
 probeSetIDs <- function(rjsonio) {
   json <- fromJSON(rjsonio) 
@@ -31,7 +31,7 @@ probeSetIDs <- function(rjsonio) {
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON 
 #' @examples
-#' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
+#' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", json = TRUE)
 #' mk.genesymbols <- geneSymbols(mk.genes)
 geneSymbols <- function(rjsonio) {
   json <- fromJSON(rjsonio) 
@@ -54,7 +54,7 @@ geneSymbols <- function(rjsonio) {
 #' @importMethodsFrom RJSONIO fromJSON 
 #' @export
 #' @examples
-#' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
+#' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", json = TRUE)
 #' mk.genenames <- geneNames(mk.genes)
 geneNames <- function(rjsonio) {
   json <- fromJSON(rjsonio) 
@@ -78,7 +78,7 @@ geneNames <- function(rjsonio) {
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON 
 #' @examples
-#' mk.genes <- getBrainStars(query = "low/SCN/count", type = "marker", output = "json")
+#' mk.genes <- getBrainStars(query = "low/SCN/count", type = "marker", json = TRUE)
 #' mk.count <- count(mk.genes)
 count <- function(rjsonio) {
   json <- fromJSON(rjsonio) 
@@ -100,7 +100,7 @@ count <- function(rjsonio) {
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON 
 #' @examples
-#' mk.genes <- getBrainStars(query = "high/SCN/ME/all", type = "ntnh", output = "json")
+#' mk.genes <- getBrainStars(query = "high/SCN/ME/all", type = "ntnh", json = TRUE)
 #' mk.ntnh.mat <- ntnh2mat(mk.genes)
 ntnh2mat <- function(rjsonio) {
   json <- fromJSON(rjsonio)	
@@ -113,4 +113,20 @@ ntnh2mat <- function(rjsonio) {
       "receptor_symbol", "receptor_highregions")
     return(response.mat)
   }
+}
+
+#' Transform results of probeset's json to list
+#'
+#' This function parses entries of response from probeset's result of List API
+#'
+#' @usage probeset2list(rjsonio)
+#' @param rjsonio result of List or Search API with type "probeset"
+#' @return A list
+#' @export
+#' @importMethodsFrom RJSONIO fromJSON 
+#' @examples
+#' mk.genes <- getBrainStars(query = "1450371_at", type = "probeset", json = TRUE)
+#' mk.ntnh.mat <- probeset2list(mk.genes)
+probeset2list <- function(rjsonio) {
+  fromJSON(rjsonio)
 }
