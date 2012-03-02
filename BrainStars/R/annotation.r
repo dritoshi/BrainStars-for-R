@@ -5,18 +5,20 @@
 #' @usage probeSetIDs(rjsonio)
 #' @param rjsonio result of List or Search API
 #' @return A cheracter vector of ProbeSet IDs.
+#' @export
 #' @importMethodsFrom RJSONIO fromJSON
 #' @examples
 #' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
 #' mk.ids   <- probeSetIDs(mk.genes)
 probeSetIDs <- function(rjsonio) {
-  if ( length(fromJSON(rjsonio)$entries ) > 0) {
-    unlist(lapply(fromJSON(rjsonio)$entries, function(x) x["pbsetid"]))
-  } else if (length(fromJSON(rjsonio)$result) > 0) {
-    unlist(lapply(fromJSON(rjsonio)$result, function(x) x["pbsetid"]))
+  json <- fromJSON(rjsonio) 
+  if ( length(json$entries) > 0) {
+    unlist( lapply(json$entries, function(x) x["pbsetid"]) )
+  } else if (length(json$result) > 0) {
+    unlist(lapply(json$result, function(x) x["pbsetid"]))
   } else {
     msg <-  "Input result of List or Search API."
-    stop(warn=msg)
+    stop(warn = msg)
   }    
 }  
 #' Extract GeneSymbol from JSON Format
@@ -32,13 +34,14 @@ probeSetIDs <- function(rjsonio) {
 #' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
 #' mk.genesymbols <- geneSymbols(mk.genes)
 geneSymbols <- function(rjsonio) {
-  if (length(fromJSON(rjsonio)$entries) > 0) {
-    unlist(lapply(fromJSON(rjsonio)$entries, function(x) x["symbol"]))
-  } else if (length(fromJSON(rjsonio)$result) > 0) {
-    unlist(lapply(fromJSON(rjsonio)$result, function(x) x["symbol"]))
+  json <- fromJSON(rjsonio) 
+  if (length(json$entries) > 0) {
+    unlist(lapply(json$entries, function(x) x["symbol"]))
+  } else if (length(json$result) > 0) {
+    unlist(lapply(json$result, function(x) x["symbol"]))
   } else {
     msg <- "Input result of List or Search API."
-    stop(warn=msg)
+    stop(warn = msg)
   }    
 }
 #' Extract Gene Names from JSON Format
@@ -54,13 +57,14 @@ geneSymbols <- function(rjsonio) {
 #' mk.genes <- getBrainStars(query = "low/SCN/all", type = "marker", output = "json")
 #' mk.genenames <- geneNames(mk.genes)
 geneNames <- function(rjsonio) {
-  if (length(fromJSON(rjsonio)$entries) > 0) {
-    unlist(lapply(fromJSON(rjsonio)$entries, function(x) x["name"]))
-  } else if (length(fromJSON(rjsonio)$result) > 0) {
-    unlist(lapply(fromJSON(rjsonio)$result, function(x) x["name"]))
+  json <- fromJSON(rjsonio) 
+  if (length(json$entries) > 0) {
+    unlist(lapply(json$entries, function(x) x["name"]))
+  } else if (length(json$result) > 0) {
+    unlist(lapply(json$result, function(x) x["name"]))
   } else {
-    msg <-  "Input result of List or Search API."
-    stop(warn=msg)
+    msg <- "Input result of List or Search API."
+    stop(warn = msg)
   }    
 }
 
@@ -77,22 +81,22 @@ geneNames <- function(rjsonio) {
 #' mk.genes <- getBrainStars(query = "low/SCN/count", type = "marker", output = "json")
 #' mk.count <- count(mk.genes)
 count <- function(rjsonio) {
-  hits <- fromJSON(rjsonio) 
-  if (hits > 0) {
-    return(hits)
+  json <- fromJSON(rjsonio) 
+  if (json > 0) {
+    return(json)
   } else {
-    msg <-  "Input result of List or Search API."
-    stop(warn=msg)
+    msg <- "Input result of List or Search API."
+    stop(warn = msg)
   }    
 }
 
 #' Transform results of ntnh's json to matrix
 #'
-#' This function extract a number of hits from result of List or Search count API
+#' This function parses entries of response from ntnh's result of List API
 #'
-#' @usage count(rjsonio)
+#' @usage ntnh2mat(rjsonio)
 #' @param rjsonio result of List or Search API with type "ntnh"
-#' @return A numeric vector of a number of hits
+#' @return A matrix
 #' @export
 #' @importMethodsFrom RJSONIO fromJSON 
 #' @examples

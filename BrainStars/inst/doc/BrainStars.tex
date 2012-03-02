@@ -59,10 +59,13 @@ expression data, the data and analysis results were stored in the
 BrainStars database.
   
 \section{Getting Started using BrainStars package}
+BrainStars package provides two major functions, \Rfunction{getBrainStars} and 
+\Rfunction{getBrainStarsFigure}. The \Rfunction{getBrainStars} function is wrapper function of all BrainStars API, list, search and entry API. The \Rfunction{getBrainStarsFigure} is convenient function to get high-resolution plots.
+
 \subsection{Getting expression profiles by ProbeSet IDs}
-Getting expression data from BrainStars is easy.  \Rfunction{getBrainStarsExpression} 
-quires gene expression profile and then parse the data into \Rclass{ExpressionSet} 
-object.  Usage is quite simple:
+Getting expression data from BrainStars is easy.  \Rfunction{getBrainStarsExpression} or 
+\Rfunction{getBrainStars} quires gene expression profile and then parse the data into 
+\Rclass{ExpressionSet} object.  Usage is quite simple:
 
 \begin{Schunk}
 \begin{Sinput}
@@ -72,6 +75,12 @@ object.  Usage is quite simple:
 
 This loads the BrainStars library.
 
+\begin{Schunk}
+\begin{Sinput}
+> my.eset <- getBrainStars(query = "1439627_at", type = "expression")
+\end{Sinput}
+\end{Schunk}
+or
 \begin{Schunk}
 \begin{Sinput}
 > my.eset <- getBrainStarsExpression("1439627_at")
@@ -157,25 +166,30 @@ You can find "id.type.png" files in local current directory. See detail of image
 \end{figure}
 
 \subsection{Keyword search}
-The function \Rfunction{getBrainStars} provides keyword search in BrainStars. This function retrives a gene list or count of genes.
+The function \Rfunction{getBrainStars} provides keyword search in BrainStars. This function retrieves a gene list or count of genes.
 \begin{Schunk}
 \begin{Sinput}
-> recep.rjson <- getBrainStars(query = "receptor/10,5",  type = "search")
+> recep.mat   <- getBrainStars(query = "receptor/10,5",  type = "search")
 > recep.count <- getBrainStars(query = "receptor/count", type = "search")
 \end{Sinput}
 \end{Schunk}
 The useful ready-to-made functions were provided to extract "gene names", "gene symbols" and "probeset ids" from \Rpackage{RJSON} character object.
 \begin{Schunk}
 \begin{Sinput}
-> recep.gns <- geneNames(recep.rjson)
-> recep.gss <- geneSymbols(recep.rjson)
-> recep.ids <- probeSetIDs(recep.rjson)
+> recep.json <- getBrainStars(
++   query  = "receptor/10,5",
++   type   = "search",
++   output = "json"
++ )
+> recep.gns  <- geneNames(recep.json)
+> recep.gss  <- geneSymbols(recep.json)
+> recep.ids  <- probeSetIDs(recep.json)
 \end{Sinput}
 \end{Schunk}
 See detail about query format in next section.
 
 \subsection{Getting a list of genes}
-BrainStars has results of some higher-order biological anlaysis. You can retrive these information in following functions.
+BrainStars has results of some higher-order biological analysis. You can retrieve these information in following functions.
 
 \subsubsection{Markers}
 Marker genes were ones whose levels in a specific CNS region are higher (or lower) than in others.
@@ -217,7 +231,7 @@ or
 \end{Sinput}
 \end{Schunk}
 
-\subsubsection{Retrive a gene list by genes by gene family / categories}
+\subsubsection{Retrieve a gene list by genes by gene family / categories}
 The function provides lists of genes in gene families or in a gene categories. 
 \begin{Schunk}
 \begin{Sinput}
@@ -439,7 +453,7 @@ Supported content type:
 \end{itemize}
 
 \section{Conclusion}
-The \Rpackage{BrainStars} package provides way to retrive gene expression, 
+The \Rpackage{BrainStars} package provides way to retrieve gene expression, 
 annotation and result of higher-order biological data analysis in R from 
 BrainStars database. To perform many useful functions of Bioconductor, 
 \Rpackage{BrainStars} package is adopted Bioconductor data structure, 

@@ -45,35 +45,38 @@ NULL
 #' This function queries various information from BrainStars
 #' The function is a wrapper of All BrainStars API.
 #'
-#' @usage getBrainStars(query, type, base.url)
+#' @usage getBrainStars(query, type, base.url, output)
 #' @param query keyword
 #' @param type BrainStars API name. (search, probeset, marker, multistate, onestate, ntnh and genefamily)
 #' @param base.url URL of Brainstars database.
-#' @return A character vector of Search API response in JSON.
+#' @param output output mode of response. (matrix, json)
+#' @return A matrix or character vector of Search API response in JSON.
 #' @details Brain API is for keyword search and is based on Tokyo Manifesto and
 #' TogoWS REST interface. Keyword for retrieving a list of hit entries:
 #' (query+string)[/(offset),(limit)].
 #'
 #'   output:
-#'   If the result has at least one hit entries, a list of entry IDs is returned
-#'   in RJSONIN format. If not, 404 Not found error code is returned. "offset,limit"
+#'   If the result has at least one hit entries, a matrix of entries is returned.
+#'   If you chose json mode, you get response in JSON character.
+#'   If not, 404 Not found error code is returned. "offset,limit"
 #'   can be used to retrieve a part of hit entries. If "offset,limit" is not given,
 #'   all hits are returned.
 #'
 #'   Keyword for retrieving the count of hit entries:
 #'  (query+string)/count.
 #'
-#'    output: The count of hit entries is returned in RJSONIO format
+#'    output: The count of hit entries is returned in matrix or JSON format
 #' @export
 #' @examples
-#' my.search   <- getBrainStars(query = "receptor",   type = "search")
-#' my.probeset <- getBrainStars(query = "1439627_at", type = "probeset")
-#' my.tf       <- getBrainStars(query = "tf",         type = "genefamily")
+#' my.search   <- getBrainStars(query = "receptor",   type = "search",     output = "matrix")
+#' my.probeset <- getBrainStars(query = "1439627_at", type = "probeset",   output = "json")
+#' my.tf       <- getBrainStars(query = "tf",         type = "genefamily", output = "matrix")
+#' my.eset     <- getBrainStars(query = "1439627_at", type = "expression")
 getBrainStars <- function(
-	base.url = "http://brainstars.org/",
-	type     = "search",   # API name
-	query    = "receptor/1,5",
-	output   = "matrix") {
+  query    = "receptor/1,5",
+  type     = "search",   # API name	
+  base.url = "http://brainstars.org/",
+  output   = "matrix") {
   url.option <- "?content-type=application/json"
   url <- paste(
     base.url,
@@ -89,6 +92,10 @@ getBrainStars <- function(
   if (length(grep("\\*\\*\\*ERROR\\*\\*\\*", response)) > 0) {
     response <- paste('{ "error":"', "No hit.\"\n", '"details":', response, '" }', sep="")
     stop(warn = response)
+  }
+
+  if (type == "expression") {
+    return( getBrainStarsExpression(query) )
   }
 
   if (output == "json") {
