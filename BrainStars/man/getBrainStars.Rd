@@ -7,8 +7,9 @@
 \arguments{
   \item{query}{keyword}
 
-  \item{type}{BrainStars API name. (search, probeset,
-  marker, multistate, onestate, ntnh and genefamily)}
+  \item{type}{BrainStars API name. (expression, search,
+  probeset, marker, multistate, onestate, ntnh and
+  genefamily)}
 
   \item{base.url}{URL of Brainstars database.}
 
@@ -25,9 +26,68 @@
 }
 \details{
   Brain API is for keyword search and is based on Tokyo
-  Manifesto and TogoWS REST interface. Keyword for
+  Manifesto and TogoWS REST interface.
+
+  Type: expression (query) "query" is a vector of ProbeSet
+  IDs.
+
+  Type: search, probeset and onestate Keyword for
   retrieving a list of hit entries:
   (query+string)[/(offset),(limit)].
+
+  Keyword for retrieving the count of hit entries:
+  (query+string)/count.
+
+  Type: genefamily Keyword search format:
+  (category)/(keyword)/(offset),(limit)
+
+  You can indicate gene category name in the following
+  words: \itemize{ \item "tf": transcription factors \item
+  "transmem": transmembrane genes \item "channel": channel
+  genes \item "gpcr": GPCR genes \item "adhesion": cell
+  adhesion genes \item "excellmat": extracellular matrix
+  genes \item "structural": structural protein genes \item
+  "neurogenesis": neurogenesis related genes \item "hox":
+  homeobox genes \item "nucrcpt": nuclear receptor genes
+  \item "ntnh": neurotransmitter/neurohormone genes \item
+  "axon": axon guidance genes \item "fox": forkhead genes }
+
+  Type: marker List API is for retrieving a list of gene
+  marker candidates. Keyword search format:
+  {high,low}/(region)/(offset),(limit).
+
+  Count of entriest search format:
+  {high,low}/(region)/count.
+
+  "high" is highly expressed regions. "low" is low
+  expressed regions. (region) means CNS region name.
+
+  Type: ntnh List API is for retrieving inferred
+  connections among CNS regions by
+  neurotransmitter/neurohormone (ntnh).
+
+  Keyword search format:
+  {high,low}/(ligand-region)/(receptor-region)/(offset),(limit).
+
+  Count of entries search format:
+  {high,low}/(ligand-region)/(receptor-region)/count.
+
+  "high": high state regions, "up": up state regions.
+
+  (ligand-region): Ligand CNS region. (receptor-region):
+  Receptor CNS region.
+
+  Type: multistate List API is for retrieving a list of
+  multi-state gene candidates. Keyword search format:
+  {high,up,low,down}/(region)/(offset),(limit).
+
+  Count of entries search format:
+  {high,up,low,down}/(region)/count.
+
+  "high": high state regions, "up": up state regions,
+  "low": low state regions, "down": down state regions.
+
+  (region) means CNS region name.
 
   output: If json is TRUE, you get response in JSON
   character. Dafault is matrix or list.  If you chose
@@ -41,11 +101,9 @@
   of hit entries. If "offset,limit" is not given, all hits
   are returned.
 
-  Keyword for retrieving the count of hit entries:
-  (query+string)/count.
-
-  output: The count of hit entries is returned in matrix,
-  list, ExpressionSet or JSON format
+  If "count" was included in "query", the count of hit
+  entries is returned in matrix, list, ExpressionSet or
+  JSON format
 }
 \examples{
 my.search   <- getBrainStars(query = "receptor",   type = "search")

@@ -63,9 +63,9 @@ BrainStars package provides two major functions, \Rfunction{getBrainStars} and
 \Rfunction{getBrainStarsFigure}. The \Rfunction{getBrainStars} function is wrapper function of all BrainStars API, list, search and entry API. The \Rfunction{getBrainStarsFigure} is convenient function to get high-resolution plots.
 
 \subsection{Getting expression profiles by ProbeSet IDs}
-Getting expression data from BrainStars is easy.  \Rfunction{getBrainStarsExpression} or 
-\Rfunction{getBrainStars} quires gene expression profile and then parse the data into 
-\Rclass{ExpressionSet} object.  Usage is quite simple:
+Getting expression data from BrainStars is easy. \Rfunction{getBrainStars} quires 
+gene expression profile and then parse the data into \Rclass{ExpressionSet} object.
+Usage is quite simple:
 
 \begin{Schunk}
 \begin{Sinput}
@@ -80,12 +80,6 @@ This loads the BrainStars library.
 > my.eset <- getBrainStars(query = "1439627_at", type = "expression")
 \end{Sinput}
 \end{Schunk}
-or
-\begin{Schunk}
-\begin{Sinput}
-> my.eset <- getBrainStarsExpression("1439627_at")
-\end{Sinput}
-\end{Schunk}
 
 Now, \Robject{my.eset} contains the R data structure (of class \Rclass{ExpressionSet}) that represents the entry 1439627\_at from BrainStars.
 
@@ -93,7 +87,7 @@ The function \Rfunction{getBrainStarsExpression} accepts vector of mutiple probe
 \begin{Schunk}
 \begin{Sinput}
 > ids <- c("1439627_at", "1439631_at", "1439633_at")
-> my.esets <- getBrainStarsExpression(ids)
+> my.esets <- getBrainStars(query = ids, type = "expression")
 > my.esets
 \end{Sinput}
 \begin{Soutput}
@@ -120,12 +114,6 @@ If you want to get annotation of a ProbeSet, you can get the list of annotation 
 \begin{Schunk}
 \begin{Sinput}
 > my.ann <- getBrainStars(query = "1439627_at", type = "probeset")
-\end{Sinput}
-\end{Schunk}
-or 
-\begin{Schunk}
-\begin{Sinput}
-> my.ann <- getBrainStarsEntry("1439627_at")
 \end{Sinput}
 \end{Schunk}
 
@@ -187,19 +175,6 @@ The function \Rfunction{getBrainStars} provides keyword search in BrainStars. Th
 > recep.count <- getBrainStars(query = "receptor/count", type = "search")
 \end{Sinput}
 \end{Schunk}
-The useful ready-to-made functions were provided to extract "gene names", "gene symbols" and "probeset ids" from \Rpackage{RJSON} character object.
-\begin{Schunk}
-\begin{Sinput}
-> recep.json <- getBrainStars(
-+   query  = "receptor/10,5",
-+   type   = "search",
-+   json   = TRUE
-+ )
-> recep.gns  <- geneNames(recep.json)
-> recep.gss  <- geneSymbols(recep.json)
-> recep.ids  <- probeSetIDs(recep.json)
-\end{Sinput}
-\end{Schunk}
 See detail about query format in next section.
 
 \subsection{Getting a list of genes}
@@ -212,23 +187,12 @@ Marker genes were ones whose levels in a specific CNS region are higher (or lowe
 > mk.genes.count <- getBrainStars(query = "high/LS/count", type = "marker")
 \end{Sinput}
 \end{Schunk}
-or
-\begin{Schunk}
-\begin{Sinput}
-> mk.genes.count <- getBrainStarsMarker("high/LS/count")
-\end{Sinput}
-\end{Schunk}
+
 \subsubsection{Multistate and onestate genes}
 Multi-state genes are ones with multi-modal expression patterns (i.e. expression of discretized states) or multi-modal patterns. For each probeset, CNS regions were grouped into the several "states" according to their expression values with variational Bayesian inference to fit to a gaussian mixture model. Multi-state genes, which have two or more states, were shown in the list. one-state genes, which have only one state, were not shown.
 \begin{Schunk}
 \begin{Sinput}
 > ms.genes.list <- getBrainStars(query = "low/SCN/all", type = "multistate")
-\end{Sinput}
-\end{Schunk}
-or
-\begin{Schunk}
-\begin{Sinput}
-> ms.genes.list <- getBrainStarsMultistate("low/SCN/all")
 \end{Sinput}
 \end{Schunk}
 
@@ -238,23 +202,9 @@ One-state genes are expressed unimodally across the CNS regions, and approximate
 > os.genes.count <- getBrainStars(query = "count", type = "onestate")
 \end{Sinput}
 \end{Schunk}
-or
-\begin{Schunk}
-\begin{Sinput}
-> os.genes.count <- getBrainStarsOnestate("count")
-\end{Sinput}
-\end{Schunk}
 
 \subsubsection{Retrieve a gene list by genes by gene family / categories}
 The function provides lists of genes in gene families or in a gene categories. 
-\begin{Schunk}
-\begin{Sinput}
-> gfc.genes1.count <- getBrainStarsGeneFamCat("tf//count")
-> gfc.genes2.list  <- getBrainStarsGeneFamCat("tf/terminal/all")
-> gfc.genes3.count <- getBrainStarsGeneFamCat("tf/terminal/count")
-\end{Sinput}
-\end{Schunk}
-or
 \begin{Schunk}
 \begin{Sinput}
 > gfc.genes1.count <- getBrainStars(query = "tf//count",         type = "genefamily")
@@ -268,12 +218,6 @@ In the CNS, various neurohormones (NHs) and neurotransmitters (NTs) are secreted
 \begin{Schunk}
 \begin{Sinput}
 > os.genes <- getBrainStars(query = "high/SCN/ME/all", type = "ntnh")
-\end{Sinput}
-\end{Schunk}
-or
-\begin{Schunk}
-\begin{Sinput}
-> os.genes <- getBrainStarsNtNh("high/SCN/ME/all")
 \end{Sinput}
 \end{Schunk}
 
